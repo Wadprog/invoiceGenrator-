@@ -1,0 +1,4 @@
+{
+  "mongoUri": "mongodb://127.0.0.1:27017/almonteReceipt",
+  "jwtSecret": "Encrypt Data String For Almonte Receipt Project"
+}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Factura</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+      name="viewport"
+    />
+
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+      name="viewport"
+    />
+    <!-- Bootstrap 3.3.7 -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <!-- Theme style -->
+    <link href="/css/theme.css" rel="stylesheet" type="text/css" />
+    <!-- Skin style -->
+    <link href="/css/skin.css" rel="stylesheet" type="text/css" />
+    <!-- Google Font -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Main content -->
+      <section class="invoice">
+        <!-- title row -->
+        <div class="row">
+          <div class="col-xs-12">
+            <h2 class="page-header">
+              <i class="fa fa-globe"></i> Almonte
+              <small class="pull-right"
+                ><%=moment(invoice.date).format('l') %></small
+              >
+            </h2>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- info row -->
+        <img
+          src="https://www.dropbox.com/s/6q1td8h8hh4p7tr/Almonte%20Logo.PNG?raw=1"
+        />
+        <div class="row invoice-info">
+          <div class="col-sm-4 invoice-col">
+            De
+            <address>
+              <strong>Almonte,</strong><br />
+              Carretera las charcas, Stgo<br />
+              Santiagoo, Rep Dom 51000<br />
+              Telefono: (809) 208-9841<br />
+              Telefono: (829) 922-0730<br />
+              Correo: almonte@gmail.com
+            </address>
+          </div>
+          <!-- /.col -->
+          <div class="col-sm-4 invoice-col">
+            A
+            <address>
+              <strong><%=invoice.client.name%></strong><br />
+              <%=invoice.client.address%><br />
+              Phone: <%=invoice.client.phone%><br />
+              Email: <%=invoice.client.email%>
+            </address>
+          </div>
+          <!-- /.col -->
+          <div class="col-sm-4 invoice-col">
+            <b>RNC 999999999</b><br />
+            <b>Numero</b> <%=invoice._id%>
+            <br />
+            <span><%=invoice.type%></span>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <!-- Table row -->
+        <div class="row">
+          <div class="col-xs-12 table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Qty</th>
+                  <th>Product</th>
+                  <th>price</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <? total=0; ?>
+                <% invoice.items.forEach(function(item){%>
+                <tr>
+                  <td><%=item.amount%></td>
+                  <td><%=item.name%></td>
+                  <td><%=item.price%> RDS</td>
+                  <td>
+                    <%=item.price*item.amount%> RDS
+                  </td>
+                </tr>
+                <%})%>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+          <!-- accepted payments column -->
+          <div class="col-xs-6">
+            <p
+              class="text-muted well well-sm no-shadow"
+              style="margin-top: 10px;"
+            >
+              Nota: Este <%=invoice.type%> incluye el precio de desmantelacion y
+              limpieza
+            </p>
+          </div>
+          <!-- /.col -->
+          <div class="col-xs-6">
+            <div class="table-responsive">
+              <table class="table">
+                <tr>
+                  <th style="width: 50%;">Subtotal:</th>
+                  <td>
+                    <%=invoice.items.reduce(function (acc, obj) { return acc +
+                    obj.total; }, 0)%> $RDS
+                  </td>
+                </tr>
+                <tr>
+                  <% if(invoice.type=="Factura"){%>
+                  <th>TaX (18.0%)</th>
+                  <td>
+                    <%=invoice.items.reduce(function (acc, obj) { return acc +
+                    obj.total; }, 0)*.18%> $RD
+                  </td>
+                </tr>
+                <tr>
+                  <th>Total:</th>
+                  <td>
+                    <%=invoice.items.reduce(function (acc, obj) { return acc +
+                    obj.total; }, 0)*.18 +invoice.items.reduce(function (acc,
+                    obj) { return acc + obj.total; }, 0)%>
+                  </td>
+                </tr>
+                <%}%>
+              </table>
+            </div>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- ./wrapper -->
+  </body>
+</html>

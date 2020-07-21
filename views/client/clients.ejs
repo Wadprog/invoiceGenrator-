@@ -1,0 +1,86 @@
+<%- include('../partials/header') %>
+
+<div class="wrapper" style="position: relative;">
+  <%- include('../partials/nav') %>
+  <!-- Left side column. contains the logo and sidebar -->
+  <%- include('../partials/sidebar') %>
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Manejo de clientes
+      </h1>
+      <small
+        >Total de <b> <%=clients.length%></b> cliente(s) registrado(s)</small
+      >
+      <h6><b>Fecha:</b><%=new Date()%>,</h6>
+      <a
+        href="/clients/new"
+        style="margin: 30px 2px 5px 16px;"
+        class="btn btn-sm btn-info btn-flat pull-left"
+        >Nuevo Cliente</a
+      >
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <!-- Button -->
+
+      <?!=include('FormModal');?>
+
+      <!-- TABLE: LATEST ORDERS -->
+
+      <div class="col-md-12">
+        <div class="box box-info">
+          <div class="box-header with-border">
+            <h3 class="box-title">Clientes</h3>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            <div class="table-responsive">
+              <table class="table no-margin">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Telefono</th>
+                    <th>Direccion</th>
+                    <th>Actiones</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <%clients.forEach( function(client){%>
+
+                  <tr>
+                    <td><%= client.name %></td>
+                    <td><%= client.email %></td>
+                    <td><%= client.phone %></td>
+                    <td><%= client.address %></td>
+                    <td>
+                      <span class="label label-warning">Modificar</span>
+                    </td>
+                  </tr>
+                  <%})%>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.table-responsive -->
+          </div>
+          <!-- /.box-body -->
+          <div class="box-footer clearfix"></div>
+          <!-- /.box-footer -->
+        </div>
+      </div>
+      <!-- /.col -->
+
+      <!-- /.row -->
+    </section>
+
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <!-- /.content-wrapper -->
+
+  <%- include('../partials/footer') %>
+</div>

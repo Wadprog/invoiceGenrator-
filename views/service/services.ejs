@@ -1,0 +1,80 @@
+
+  <%- include('../partials/header') %>
+
+  <div class="wrapper" style="position: relative;">
+    <%- include('../partials/nav') %>
+    <!-- Left side column. contains the logo and sidebar -->
+    <%- include('../partials/sidebar') %>
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          Manejo De productos o Servicios
+        </h1>
+        <small>Total <b><%= services.length %> </b>servicios registrado</small>
+        <h6> <b>Fecha:</b><%=new Date()%>,</h6>
+        <a
+          href="/services/new"
+          style="margin: 30px 2px 5px 16px;"
+          class="btn btn-sm btn-info btn-flat pull-left"
+          >Nueva Servicio</a
+        >
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <!-- Button -->
+
+        <!-- TABLE: LATEST ORDERS -->
+
+        <div class="col-md-12">
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Servicios</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="table-responsive">
+                <table class="table no-margin">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nombre</th>
+                      <th>Precio</th>
+                      <th>Actiones</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <%services.forEach(function(service){ %>
+                      <tr>
+                        <td><%= service.id %></td>
+                        <td><%= service.name%></td>
+                        <td><%= service.price %> $RDS</td>
+                        <td>
+                          <span class="label label-warning">Modificar</span>
+                          <span class="label label-danger">Borrar</span>
+                        </td>
+                      </tr>
+                      <%});%>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.table-responsive -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix"></div>
+            <!-- /.box-footer -->
+          </div>
+        </div>
+        <!-- /.col -->
+
+        <!-- /.row -->
+      </section>
+
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <%- include('../partials/footer') %>
+  </div>
+</div>

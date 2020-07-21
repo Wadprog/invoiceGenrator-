@@ -1,0 +1,98 @@
+<%- include('../partials/header') %>
+
+<div class="wrapper" style="position: relative;">
+  <%- include('../partials/nav') %>
+  <!-- Left side column. contains the logo and sidebar -->
+  <%- include('../partials/sidebar') %>
+  <!-- Content Wrapper. Contains page content -->
+
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Systema de manejo de Factura
+      </h1>
+      <h6><?=new Date()?>,</h6>
+      <a
+        href="/invoices/new"
+        style="margin: 30px 2px 5px 16px;"
+        class="btn btn-sm btn-info btn-flat pull-left"
+        >Nueva Factura</a
+      >
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <!-- Button -->
+
+      <?!=include('FormModal');?>
+
+      <!-- TABLE: LATEST ORDERS -->
+
+      <div class="col-md-12">
+        <div class="box box-info">
+          <div class="box-header with-border">
+            <h3 class="box-title">Recibos</h3>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            <div class="table-responsive">
+              <table class="table no-margin">
+                <thead>
+                  <tr>
+                    
+                    <th>Fecha</th>
+                    <th>Nombre del Cliente</th>
+                    <th>Total</th>
+                    <th>Categoria</th>
+                    <th>.</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <% invoices.reverse().forEach(function(invoice){%>
+                  <? for(i=0; i<data.length; i++) {?>
+                  <tr>
+                  
+                    <td>
+                      <%=moment(invoice.date).format('l')%>
+                     </td>
+                    <td>
+                      <%=invoice.client.name%>
+                    </td>
+                    <td>
+                      <%=invoice.items.reduce(function (acc, obj) { return acc + obj.total; }, 0)%> $RD
+                    </td>
+
+                    <td>
+                      <span class="label label-<%=invoice.type=="cotizacion"?"warning":"success"%>"><%=invoice.type%></span>
+                    </td>
+
+                    <td>
+                        <a href="/invoice/pdf/<%=invoice._id%>"class="btn btn-sm btn-info">Ver</a>
+                        <a href="/invoice/print/<%=invoice._id%>" class="btn btn-sm btn-success">Print</a>
+                        <a class="btn btn-sm btn-danger">Bor</a>
+                    </td>
+                  </tr>
+                  <%})%>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.table-responsive -->
+          </div>
+          <!-- /.box-body -->
+          <div class="box-footer clearfix"></div>
+          <!-- /.box-footer -->
+        </div>
+      </div>
+      <!-- /.col -->
+
+      <!-- /.row -->
+    </section>
+
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+</div>
+<%- include('../partials/footer') %>
+</div>

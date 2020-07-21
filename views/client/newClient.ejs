@@ -1,0 +1,66 @@
+<%- include('../partials/header') %>
+
+<div class="wrapper" style="position: relative;">
+  <%- include('../partials/nav') %>
+  <!-- Left side column. contains the logo and sidebar -->
+  <%- include('../partials/sidebar') %>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper mt-5">
+    <div class="mt-5 container justify-content-center">
+      <div class="card">
+        <div class="card-header">
+          Nuevo Cliente
+        </div>
+        <form action="/clients" method="POST" class="px-3 py-3">
+          <div class="form-group">
+            <label for="name">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              placeholder="Enter a valid name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              placeholder="Another input"
+            />
+          </div>
+          <div class="form-group">
+            <label for="tel">Telefono</label>
+            <input
+              type="text"
+              class="form-control"
+              name="phone"
+              placeholder="Example input"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="address">direccion</label>
+            <textarea
+              class="form-control"
+              name="address"
+              placeholder="Dirrecion"
+            ></textarea>
+          </div>
+          <button id="btn-" type="submit" class="btn btn-primary">
+            Registrar
+          </button>
+        </form>
+        <div class="card-footer">
+          <a href="/clients">
+            <i class="fa fa-arrow-left"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+  </div>
+</div>

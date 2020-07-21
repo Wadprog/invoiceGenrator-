@@ -1,0 +1,65 @@
+<%- include('../partials/header') %>
+
+<div class="wrapper" style="position: relative;">
+  <%- include('../partials/nav') %>
+  <!-- Left side column. contains the logo and sidebar -->
+  <%- include('../partials/sidebar') %>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <div class="mt-5 container justify-content-center">
+      <div class="card">
+        <div class="card-header">
+          Nuevo Servicio
+        </div>
+        <form action="/services" method="POST" class="px-3 py-3">
+          <div class="form-group">
+            <label for="name">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              placeholder="Example input"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="price">Precio</label>
+            <input
+              type="text"
+              class="form-control"
+              name="price"
+              placeholder="Another input"
+            />
+          </div>
+          <div class="form-group">
+            <label for="price">Unidad</label>
+            <select
+              type="text"
+              class="form-control"
+              name="unit"
+              placeholder="Another input"
+            >
+            <option value="m">m2</option>
+            <option value="ln">ln</option>
+          </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Registrar</button>
+        </form>
+        <div class="card-footer">
+          <a
+            href="https://script.google.com/macros/s/AKfycby7MrKJqbO1sFCoedZH4AC7b1Rjr83Wtc3Gjua3mLi-/dev?v=services"
+          >
+            <i class="fa fa-arrow-left"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<!-- /.content-wrapper -->
+
+<%- include('../partials/footer') %>
+</div>
