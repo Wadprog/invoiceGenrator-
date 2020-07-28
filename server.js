@@ -5,7 +5,7 @@ const cors = require("cors");
 const Services = require("./models/service");
 const Clients = require("./models/client");
 const Invoices = require("./models/invoice");
-
+const Comprobantes = require("./models/comprobante");
 const app = express();
 app.use(cors());
 app.set("view engine", "ejs");
@@ -15,6 +15,7 @@ app.use(express.static(__dirname + "/public"));
 connectDB();
 
 const moment = require("moment");
+const comprobante = require("./models/comprobante");
 app.use(express.json({ extended: false }));
 
 app.post("/invoices", async function (req, res) {
@@ -143,11 +144,51 @@ app.post("/clients", async function (req, res) {
   } catch (error) {}
 });
 
-app.get("/api/client", async function (req, res) {
+app.get("/comprobantes", async function (req, res) {
   try {
-    let clients = await Clients.find();
-    res.json(clients);
-  } catch (error) {}
+    let comprobantes = await Comprobantes.find().populate("invoice");
+    res.render("comprobante/index", { comprobantes, moment });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+app.get("/comprobantes/new", function (req, res) {
+  try {
+    res.render("comprobante/new");
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+app.post("/comprobantes", async function (req, res) {
+  try {
+    const { rangeStart, rangeEnd } = req.body;
+
+    let rangeStartNumber = parseInt(rangeStart.slice(2));
+    let rangeEndNumber = parseInt(rangeEnd.slice(2));
+
+    const range = [];
+
+    for (var i = rangeStartNumber; i < rangeEndNumber + 1; i++) {
+      let comprobante = null;
+      let compro = rangeStart[0] + rangeStart[1] + rangeStartNumber++;
+      comprobante = await new Comprobantes({ value: compro });
+      await comprobante.save();
+    }
+    res.redirect("/comprobantes");
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+app.get("/api/comprobante", async function (req, res) {
+  try {
+    let comprobantes = await Comprobantes.find({ used: false });
+    res.json(comprobantes);
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 });
 
 app.get("/api/service", async function (req, res) {
@@ -157,6 +198,12 @@ app.get("/api/service", async function (req, res) {
   } catch (error) {}
 });
 
+app.get("/api/client", async function (req, res) {
+  try {
+    let clients = await Clients.find();
+    res.json(clients);
+  } catch (error) {}
+});
 //use the routes
 
 /*app.use("/api/clientes", require("./routes/api/client"));

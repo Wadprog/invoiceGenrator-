@@ -1,6 +1,7 @@
 class Comprobantes extends React.Component {
   render() {
     const { comprobantes } = this.props;
+
     return (
       <div className='row'>
         <React.Fragment>
@@ -26,7 +27,7 @@ class Comprobantes extends React.Component {
               </label>
               <input
                 readOnly={true}
-                value={this.props.comprobantes[0].number}
+                value={this.props.compro}
                 type='text'
                 className='form-control'
                 aria-label='Small'
@@ -377,6 +378,8 @@ class InvoiceDetails extends React.Component {
 
 class VoucherDetails extends React.Component {
   render() {
+    let compro = this.props.comprobante ? this.props.comprobantes[0].value : "";
+    console.log(compro);
     return (
       <React.Fragment>
         <div className='form-group'>
@@ -437,7 +440,7 @@ class VoucherDetails extends React.Component {
                   name='type'
                   id='Cotizacion'
                   value='Cotizacion'
-                  onChange={this.props.handleChange}
+                  onChange={e => this.props.handleChange(e)}
                   checked={this.props.type == "Cotizacion" ? true : false}
                 />
                 <label className='form-check-label' htmlFor='inlineRadio2'>
@@ -462,6 +465,7 @@ class VoucherDetails extends React.Component {
               )}
               {this.props.comprobante && (
                 <Comprobantes
+                  compro={compro}
                   {...this.props}
                   handleChange={this.props.handleChange}
                 />
@@ -491,17 +495,25 @@ const App = () => {
   React.useEffect(() => {
     let one = "http://localhost:4000/api/service";
     let two = "http://localhost:4000/api/client";
+    let three = "http://localhost:4000/api/comprobante";
     const requestOne = axios.get(one);
     const requestTwo = axios.get(two);
+    const requestThree = axios.get(three);
 
     axios
-      .all([requestOne, requestTwo])
+      .all([requestOne, requestTwo, requestThree])
       .then(
         axios.spread((...responses) => {
           const serviceResp = responses[0].data;
           const ClientResp = responses[1].data;
+          const comprobanteResp = responses[2].data;
           console.log(serviceResp, ClientResp);
-          setState({ ...state, clients: ClientResp, products: serviceResp });
+          setState({
+            ...state,
+            clients: ClientResp,
+            products: serviceResp,
+            comprobantes: comprobanteResp,
+          });
         })
       )
       .catch(errors => {

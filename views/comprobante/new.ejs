@@ -1,0 +1,61 @@
+
+  <%- include('../partials/header') %>
+
+  <div class="wrapper" style="position: relative;">
+    <%- include('../partials/nav') %>
+    <!-- Left side column. contains the logo and sidebar -->
+    <%- include('../partials/sidebar') %>
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          Agregar nuevo comprobante
+        </h1>
+        <h6> <b>Fecha:</b><%=new Date()%>,</h6>
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <!-- Button -->
+
+        <!-- TABLE: LATEST ORDERS -->
+
+        <div class="col-md-12">
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">comprobantes</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="table-responsive">
+                <form action="/comprobantes" method="POST">
+                <div class="form-group">
+                    <label for="rangeStart">Primer comprobante</label>
+                    <input type="text" name="rangeStart">
+                </div>
+
+                <div class="form-group">
+                    <label for="rangeEnd"> Ultimo comprobante</label>
+                    <input type="text" name="rangeEnd">
+                </div>
+                <button type="submit" class="btn btn-primary">Registar</button>
+                </form>
+              </div>
+              <!-- /.table-responsive -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix"></div>
+            <!-- /.box-footer -->
+          </div>
+        </div>
+        <!-- /.col -->
+
+        <!-- /.row -->
+      </section>
+
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <%- include('../partials/footer') %>
+  </div>
+</div>

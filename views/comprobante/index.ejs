@@ -1,0 +1,82 @@
+
+  <%- include('../partials/header') %>
+
+  <div class="wrapper" style="position: relative;">
+    <%- include('../partials/nav') %>
+    <!-- Left side column. contains the logo and sidebar -->
+    <%- include('../partials/sidebar') %>
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          Manejo de comprobantes
+        </h1>
+        <small>Total <b><%= comprobantes.length %> </b>comprobantes registrado</small>
+        <h6> <b>Fecha:</b><%=new Date()%>,</h6>
+        <a
+          href="/comprobantes/new"
+          style="margin: 30px 2px 5px 16px;"
+          class="btn btn-sm btn-info btn-flat pull-left"
+          >Nuevos comprobantes</a
+        >
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <!-- Button -->
+
+        <!-- TABLE: LATEST ORDERS -->
+
+        <div class="col-md-12">
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">comprobantes</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="table-responsive">
+                <table class="table no-margin">
+                  <thead>
+                    <tr>
+                      <th>Valor</th>
+                      <th>Fecha agregada</th>
+                      <th>Factura</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <%comprobantes.forEach(function(comprobante){ %>
+                      <tr>
+                        <td><%= comprobante.value %></td>
+                        <td><%= moment(comprobante.dateAdded).format('l')%></td>
+                        <td><%if(comprobante.used){%>
+                            <span><%= moment(comprobante.dateUsed).format('l')%></span>
+                            <span><a href="/invoice/pdf/<%=comprobante.invoice%>"><%=comprobante.invoice%></a></span>
+                            <%}%>
+                            <%if(!comprobante.used){%>
+                                <span>Disponible</span>
+                                <%}%>
+                        </td>
+                      </tr>
+                      <%});%>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.table-responsive -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix"></div>
+            <!-- /.box-footer -->
+          </div>
+        </div>
+        <!-- /.col -->
+
+        <!-- /.row -->
+      </section>
+
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <%- include('../partials/footer') %>
+  </div>
+</div>
